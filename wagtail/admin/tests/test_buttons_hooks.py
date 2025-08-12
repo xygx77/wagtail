@@ -360,6 +360,63 @@ class TestPageHeaderButtonsHooks(TestButtonsHooks):
         self.assertFalse(add_subpage_button.is_shown(user=self.user))
 
 
+class TestButtonRendering(WagtailTestUtils, SimpleTestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.link_button = Button(
+            "Go to URL",
+            "/url",
+            classname="class1 class2",
+            icon_name="globe",
+            attrs={"data-test": "value"},
+        )
+        cls.action_button = Button(
+            "Perform action",
+            classname="class3 class4",
+            icon_name="cog",
+            attrs={"data-action": "perform"},
+        )
+        cls.submit_button = Button(
+            "Submit form",
+            classname="class3 class4",
+            icon_name="cog",
+            attrs={"type": "submit", "data-action": "perform"},
+        )
+
+    def test_link_button_renders_as_anchor_tag(self):
+        html = self.link_button.render_html({})
+        soup = self.get_soup(html)
+        link = soup.select_one("a")
+        self.assertIsNotNone(link)
+        self.assertEqual(link.get("href"), "/url")
+        self.assertEqual(set(link.get("class")), {"class1", "class2"})
+        self.assertEqual(link.get("data-test"), "value")
+        icon = link.select_one("svg use[href='#icon-globe']")
+        self.assertIsNotNone(icon)
+
+    def test_action_button_renders_as_button_tag(self):
+        html = self.action_button.render_html({})
+        soup = self.get_soup(html)
+        button = soup.select_one("button")
+        self.assertIsNotNone(button)
+        self.assertEqual(button.get("type"), "button")
+        self.assertEqual(set(button.get("class")), {"class3", "class4"})
+        self.assertEqual(button.get("data-action"), "perform")
+        icon = button.select_one("svg use[href='#icon-cog']")
+        self.assertIsNotNone(icon)
+
+    def test_button_allows_submit_type(self):
+        html = self.submit_button.render_html({})
+        soup = self.get_soup(html)
+        button = soup.select_one("button")
+        self.assertIsNotNone(button)
+        self.assertEqual(button.get("type"), "submit")
+        self.assertEqual(set(button.get("class")), {"class3", "class4"})
+        self.assertEqual(button.get("data-action"), "perform")
+        icon = button.select_one("svg use[href='#icon-cog']")
+        self.assertIsNotNone(icon)
+
+
 class ButtonComparisonTestCase(SimpleTestCase):
     """Tests the comparison functions."""
 

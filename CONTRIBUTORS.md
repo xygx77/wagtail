@@ -975,6 +975,7 @@
 * Sanjok Karki
 * Amrinder Singh
 * Kailesh
+* Nayeli De Jesus
 
 ## Translators
 

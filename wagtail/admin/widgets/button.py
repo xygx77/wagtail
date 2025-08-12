@@ -24,18 +24,20 @@ class BaseButton(Component):
         attrs=None,
         priority=1000,
     ):
+        self.attrs = self.attrs.copy()
         if label:
             self.label = label
 
         if url:
             self.url = url
+        else:
+            self.attrs["type"] = "button"
 
         self.classname = classname
 
         if icon_name:
             self.icon_name = icon_name
 
-        self.attrs = self.attrs.copy()
         if attrs:
             self.attrs.update(attrs)
         self.priority = priority
@@ -105,7 +107,11 @@ class BaseButton(Component):
 
 
 class Button(BaseButton):
-    """Plain link button with a label and optional icon."""
+    """
+    Plain button with a label and optional icon.
+    If ``url`` is provided, it will be rendered as an ``<a>`` element;
+    otherwise, it will be rendered as a ``<button type="button">`` element.
+    """
 
     allow_in_dropdown = True
 
