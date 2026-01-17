@@ -1,4 +1,3 @@
-from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.ui.tables import LiveStatusTagColumn
@@ -73,7 +72,4 @@ class SnippetChooserViewSet(ChooserViewSet):
     chosen_view_class = SnippetChosenView
     chosen_multiple_view_class = SnippetChosenMultipleView
     create_view_class = SnippetCreateView
-
-    @cached_property
-    def widget_class(self):
-        return AdminSnippetChooser(model=self.model, icon=self.icon)
+    base_widget_class = AdminSnippetChooser

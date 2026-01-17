@@ -6,6 +6,7 @@ Changelog
 
 * Set `FieldPanel(required_on_save=True)` for `AbstractFormField`'s `field_type` field (Alex Tomkins)
 * Handle pasting of multiple tags separated by newlines or commas (Matthias Brück)
+* Fix: Make `SnippetChooserViewSet.widget_class` a class instead of an instance (Amrinder Singh, Sage Abdullah)
 
 
 7.4 LTS (05.05.2026)
