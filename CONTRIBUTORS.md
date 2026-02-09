@@ -974,6 +974,7 @@
 * Vishal Shukla
 * Sanjok Karki
 * Amrinder Singh
+* Kailesh
 
 ## Translators
 

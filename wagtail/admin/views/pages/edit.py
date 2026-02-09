@@ -563,10 +563,12 @@ class EditView(
             return self.form_invalid(self.form)
 
     def workflow_action_is_valid(self):
-        self.workflow_action = self.request.POST["workflow-action-name"]
-        available_actions = self.page.current_workflow_task.get_actions(
-            self.page, self.request.user
-        )
+        # The workflow might have been cancelled/ended after the page was loaded
+        workflow_task = self.page.current_workflow_task
+        if not workflow_task:
+            return False
+        self.workflow_action = self.request.POST.get("workflow-action-name")
+        available_actions = workflow_task.get_actions(self.page, self.request.user)
         available_action_names = [
             name for name, verbose_name, modal in available_actions
         ]
