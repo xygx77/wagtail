@@ -4,6 +4,7 @@ import functools
 import logging
 import posixpath
 import uuid
+import warnings
 
 from django.conf import settings
 from django.contrib.auth.models import Group, Permission
@@ -63,6 +64,7 @@ from wagtail.signals import (
     pre_validate_delete,
 )
 from wagtail.url_routing import RouteResult
+from wagtail.utils.deprecation import RemovedInWagtail90Warning
 from wagtail.utils.timestamps import ensure_utc
 
 from .audit_log import BaseLogEntry, BaseLogEntryManager, LogEntryQuerySet
@@ -1317,13 +1319,19 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         """
         return (not self.is_leaf()) or self.depth == 2
 
-    def _get_site_root_paths(self, request=None):
+    def _get_site_root_paths(self, cache_object=None, **kwargs):
         """
         Return ``Site.get_site_root_paths()``, using the cached copy on the
-        request object if available.
+        cache_object if available.
         """
-        # if we have a request, use that to cache site_root_paths; otherwise, use self
-        cache_object = request if request else self
+        if "request" in kwargs:
+            warnings.warn(
+                "The `request` kwarg in `Page._get_site_root_paths()` is now `cache_object`.",
+                category=RemovedInWagtail90Warning,
+            )
+            cache_object = cache_object or kwargs["request"]
+        # if we have a cache_object, use that to cache site_root_paths; otherwise, use self
+        cache_object = cache_object if cache_object else self
         try:
             return cache_object._wagtail_cached_site_root_paths
         except AttributeError:
