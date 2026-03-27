@@ -976,6 +976,7 @@
 * Amrinder Singh
 * Kailesh
 * Nayeli De Jesus
+* Sahil Kumar
 
 ## Translators
 
