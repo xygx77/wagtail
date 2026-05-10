@@ -4,7 +4,7 @@ Changelog
 8.0 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
-* ...
+* Set `FieldPanel(required_on_save=True)` for `AbstractFormField`'s `field_type` field (Alex Tomkins)
 
 
 7.4 LTS (05.05.2026)

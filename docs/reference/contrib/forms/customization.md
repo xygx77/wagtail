@@ -704,6 +704,7 @@ First, make the new field type available in the page editor by changing your `Fo
 -   Create a new set of choices which includes the original `FORM_FIELD_CHOICES` along with new field types you want to make available.
 -   Each choice must contain a unique key and a human-readable name of the field, for example `('slug', 'URL Slug')`
 -   Override the `field_type` field in your `FormField` model with `choices` attribute using these choices.
+    - If you also override the model's `panels` with your own (instead of extending `AbstractFormField.panels`), make sure to also set [`required_on_save = True`](wagtail.admin.panels.FieldPanel.required_on_save) on the panel for `field_type`.
 -   You will need to run `./manage.py makemigrations` and `./manage.py migrate` after this step.
 
 Then, create and use a new form builder class.
