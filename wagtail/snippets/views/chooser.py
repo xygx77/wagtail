@@ -67,9 +67,36 @@ class SnippetCreateView(CreateView):
 
 
 class SnippetChooserViewSet(ChooserViewSet):
+    """
+    A :class:`~wagtail.admin.viewsets.chooser.ChooserViewSet` subclass with
+    support for additional snippet-specific features.
+
+    All attributes and methods from ``ChooserViewSet`` are available.
+    """
+
     choose_view_class = ChooseView
+    """
+    The view class to use for the overall chooser modal;
+    must be a subclass of ``wagtail.snippets.views.chooser.ChooseView``.
+    """
     choose_results_view_class = ChooseResultsView
+    """
+    The view class used to render just the results panel within the chooser modal;
+    must be a subclass of ``wagtail.snippets.views.chooser.ChooseResultsView``.
+    """
     chosen_view_class = SnippetChosenView
+    """
+    The view class used after an item has been chosen;
+    must be a subclass of ``wagtail.snippets.views.chooser.SnippetChosenView``.
+    """
     chosen_multiple_view_class = SnippetChosenMultipleView
+    """
+    The view class used after multiple items have been chosen;
+    must be a subclass of ``wagtail.snippets.views.chooser.SnippetChosenMultipleView``.
+    """
     create_view_class = SnippetCreateView
+    """
+    The view class used to handle submissions of the 'create' form;
+    must be a subclass of ``wagtail.snippets.views.chooser.SnippetCreateView``.
+    """
     base_widget_class = AdminSnippetChooser

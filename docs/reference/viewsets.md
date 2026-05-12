@@ -225,6 +225,20 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
    .. automethod:: get_chooser_admin_base_path
 ```
 
+## SnippetChooserViewSet
+
+```{eval-rst}
+.. autoclass:: wagtail.snippets.views.chooser.SnippetChooserViewSet
+
+   .. autoattribute:: choose_view_class
+   .. autoattribute:: choose_results_view_class
+   .. autoattribute:: chosen_view_class
+   .. autoattribute:: chosen_multiple_view_class
+   .. autoattribute:: create_view_class
+   .. autoattribute:: base_widget_class
+   .. autoattribute:: widget_class
+```
+
 ## SnippetViewSetGroup
 
 ```{eval-rst}
